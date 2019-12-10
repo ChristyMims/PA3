@@ -21,7 +21,7 @@ class Discriminator(torch.nn.Module):
     See torch.nn.LeakyReLU.
     """
     def __init__(self, input_channels=3):
-        super(Discriminator, self).__init__()
+        super().__init__()
         
         ####################################
         #          YOUR CODE HERE          #
@@ -52,7 +52,7 @@ class Discriminator(torch.nn.Module):
             # state size (512) x 8 x 8 
             # without padding  (512) x 6 x 6
 			#//TBA
-            Conv2d(512, 1024, kernel_size=4, stride=2, paddding=1, bias=False),
+            Conv2d(512, 1024, kernel_size=4, stride=2, padding=1, bias=False),
             BatchNorm2d(1024),
             LeakyReLU(0.2, inplace=True)
 
@@ -61,7 +61,7 @@ class Discriminator(torch.nn.Module):
             # state size (1024) x 4 x 4
             # without padding (1024) x 3 x 3
 			#//TBA
-            Conv2d(1024, 1, kernel_size=4, stride=2, paddding=1, bias=False),
+            Conv2d(1024, 1, kernel_size=4, stride=1, padding=1, bias=False),
             LeakyReLU(0.2, inplace=True)
 
         )
@@ -104,7 +104,7 @@ class Generator(torch.nn.Module):
     The output should be a 3x64x64 tensor for each sample (equal dimensions to the images from the dataset).
     """
     def __init__(self, noise_dim, output_channels=3):
-        super(Generator, self).__init__()    
+        super().__init__()    
         self.noise_dim = noise_dim
         
         ####################################
@@ -122,7 +122,7 @@ class Generator(torch.nn.Module):
             # Inverse of Formula (W - K + 2P / S) + 1 for up-sampling
             # W is input size, K is kernel size, P is padding, S is stride
 			#//TBA
-            ConvTranspose2d(1024, 512, kernel_size=4, stride=1, padding=0, bias=False),
+            ConvTranspose2d(1024, 512, kernel_size=4, stride=2, padding=0, bias=False),
             BatchNorm2d(512),
             ReLU(True)
 
@@ -130,7 +130,7 @@ class Generator(torch.nn.Module):
         self.hidden2 = Sequential(
             # state size (512) x 8 x 8 
 			#//TBA
-            ConvTranspose2d(512, 256, kernel_size=4, stride=1, padding=0, bias=False),
+            ConvTranspose2d(512, 256, kernel_size=4, stride=2, padding=0, bias=False),
             BatchNorm2d(256),
             ReLU(True)
 
@@ -138,7 +138,7 @@ class Generator(torch.nn.Module):
         self.hidden3 = Sequential(
             # state size (256) x 16 x 16 
 			#//TBA
-            ConvTranspose2d(256, 128, kernel_size=4, stride=1, padding=0, bias=False),
+            ConvTranspose2d(256, 128, kernel_size=4, stride=2, padding=0, bias=False),
             BatchNorm2d(128),
             ReLU(True)
 
